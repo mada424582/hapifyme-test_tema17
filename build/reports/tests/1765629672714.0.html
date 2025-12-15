@@ -1,0 +1,846 @@
+<html><head>
+	<title>Welcome to hapifyMe!</title>
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-128x128.png">
+	<!-- Javascript -->
+	 <!-- Add GA4 Tracking Code -->
+	  <!-- Google tag (gtag.js) -->
+		<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EH579D76V5"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-EH579D76V5');
+		</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/bootbox.min.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/jquery.Jcrop.js"></script>
+	<script src="assets/js/jcrop_bits.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/jquery.Jcrop.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+
+	<div class="top_bar"> 
+
+		<div class="logo">
+			
+		<a href="index.php">
+        	<img src="assets/images/logo_1.png" alt="hapifyMe Logo" class="logo-img">
+        	hapifyMe.
+    	</a>
+		</div>
+
+
+		<div class="search">
+			<form action="search.php" method="GET" name="search_form">
+				<input type="text" onkeyup="getLiveSearchUsers(this.value, 'madalina_munteanu')" name="q" placeholder="Search..." autocomplete="off" id="search_text_input">
+
+				<div class="button_holder">
+					<img src="assets/images/icons/magnifying_glass.png" alt="">
+				</div>
+			</form>
+
+			<div class="search_results">
+			</div>
+
+			<div class="search_results_footer_empty">
+			</div>
+		</div>
+		<nav>
+			
+
+			<a href="madalina_munteanu">
+				Madalina			</a>
+			<a href="index.php">
+				<i class="fa fa-home fa-lg"></i>
+			</a>
+			<a href="javascript:void(0);" onclick="getDropdownData('madalina_munteanu', 'message')">
+				<i class="fa fa-envelope fa-lg"></i>
+							</a>
+			<a href="javascript:void(0);" onclick="getDropdownData('madalina_munteanu', 'notification')">
+				<i class="fa fa-bell fa-lg"></i>
+							</a>
+			<a href="requests.php">
+				<i class="fa fa-users fa-lg"></i>
+							</a>
+			<a href="settings.php">
+				<i class="fa fa-cog fa-lg"></i>
+			</a>
+			<a id="logout_button" href="includes/handlers/logout.php">
+				<i class="fa fa-sign-out fa-lg"></i>
+			</a>
+
+		</nav>
+
+		<div class="dropdown_data_window" style="height:0px; border:none;"></div>
+		<input type="hidden" id="dropdown_data_type" value="">
+
+
+	</div>
+
+
+	<script>
+	var userLoggedIn = 'madalina_munteanu';
+
+	$(document).ready(function() {
+
+		$('.dropdown_data_window').scroll(function() {
+			var inner_height = $('.dropdown_data_window').innerHeight(); //Div containing data
+			var scroll_top = $('.dropdown_data_window').scrollTop();
+			var page = $('.dropdown_data_window').find('.nextPageDropdownData').val();
+			var noMoreData = $('.dropdown_data_window').find('.noMoreDropdownData').val();
+
+			if ((scroll_top + inner_height >= $('.dropdown_data_window')[0].scrollHeight) && noMoreData == 'false') {
+
+				var pageName; //Holds name of page to send ajax request to
+				var type = $('#dropdown_data_type').val();
+
+
+				if(type == 'notification')
+					pageName = "ajax_load_notifications.php";
+				else if(type = 'message')
+					pageName = "ajax_load_messages.php"
+
+
+				var ajaxReq = $.ajax({
+					url: "includes/handlers/" + pageName,
+					type: "POST",
+					data: "page=" + page + "&userLoggedIn=" + userLoggedIn,
+					cache:false,
+
+					success: function(response) {
+						$('.dropdown_data_window').find('.nextPageDropdownData').remove(); //Removes current .nextpage 
+						$('.dropdown_data_window').find('.noMoreDropdownData').remove(); //Removes current .nextpage 
+
+
+						$('.dropdown_data_window').append(response);
+					}
+				});
+
+			} //End if 
+
+			return false;
+
+		}); //End (window).scroll(function())
+
+
+	});
+
+	</script>
+
+
+	<div class="wrapper">	<div class="user_details column">
+		<a href="madalina_munteanu">  <img src="assets/images/profile_pics/defaults/head_deep_blue.png"> </a>
+
+		<div class="user_details_left_right">
+			<a href="madalina_munteanu">
+			Madalina Munteanu			</a>
+			<br>
+			Posts: 162<br>Likes: 0		</div>
+
+	</div>
+
+	<div class="main_column column">
+		<form class="post_form" action="index.php" method="POST" enctype="multipart/form-data">
+			<input type="file" name="fileToUpload" id="fileToUpload">
+			<textarea name="post_text" id="post_text" placeholder="Got something to say?"></textarea>
+			<input type="submit" name="post" id="post_button" value="Post">
+			<hr>
+
+		</form>
+
+		<div class="posts_area">					<script> 
+						function toggle487() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment487");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post487').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=487", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle486() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment486");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post486').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=486", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle485() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment485");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post485').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=485", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle484() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment484");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post484').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=484", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle483() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment483");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post483').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=483", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle482() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment482");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post482').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=482", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle481() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment481");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post481').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=481", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle480() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment480");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post480').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=480", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle479() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment479");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post479').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=479", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+									<script> 
+						function toggle478() {
+
+							var target = $(event.target);
+							if (!target.is("a")) {
+								var element = document.getElementById("toggleComment478");
+
+								if(element.style.display == "block") 
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+							}
+						}
+
+					</script>
+									<script>
+
+					$(document).ready(function() {
+
+						$('#post478').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+
+								$.post("includes/form_handlers/delete_post.php?post_id=478", {result:result});
+
+								if(result)
+									location.reload();
+
+							});
+						});
+
+
+					});
+
+				</script>
+				<div class="status_post" onclick="javascript:toggle487()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;Just now
+									<button class="delete_button btn-danger" id="post487">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">blaaaaaaa blaaaa</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=487" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment487" style="display:none;">
+								<iframe src="comment_frame.php?post_id=487" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle486()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;Just now
+									<button class="delete_button btn-danger" id="post486">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">prima postare pe azi</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=486" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment486" style="display:none;">
+								<iframe src="comment_frame.php?post_id=486" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle485()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;Just now
+									<button class="delete_button btn-danger" id="post485">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">testtesttest</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=485" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment485" style="display:none;">
+								<iframe src="comment_frame.php?post_id=485" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle484()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;53 minutes ago
+									<button class="delete_button btn-danger" id="post484">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">blaaaaaaa blaaaa</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=484" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment484" style="display:none;">
+								<iframe src="comment_frame.php?post_id=484" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle483()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;53 minutes ago
+									<button class="delete_button btn-danger" id="post483">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">prima postare pe azi</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=483" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment483" style="display:none;">
+								<iframe src="comment_frame.php?post_id=483" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle482()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;53 minutes ago
+									<button class="delete_button btn-danger" id="post482">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">testtesttest</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=482" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment482" style="display:none;">
+								<iframe src="comment_frame.php?post_id=482" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle481()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;54 minutes ago
+									<button class="delete_button btn-danger" id="post481">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">blaaaaaaa blaaaa</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=481" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment481" style="display:none;">
+								<iframe src="comment_frame.php?post_id=481" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle480()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;54 minutes ago
+									<button class="delete_button btn-danger" id="post480">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">prima postare pe azi</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=480" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment480" style="display:none;">
+								<iframe src="comment_frame.php?post_id=480" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle479()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;54 minutes ago
+									<button class="delete_button btn-danger" id="post479">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">testtesttest</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=479" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment479" style="display:none;">
+								<iframe src="comment_frame.php?post_id=479" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><div class="status_post" onclick="javascript:toggle478()">
+								<div class="post_profile_pic">
+									<img src="assets/images/profile_pics/defaults/head_deep_blue.png" width="50">
+								</div>
+
+								<div class="posted_by" style="color:#ACACAC;">
+									<a href="madalina_munteanu"> Madalina Munteanu </a> 
+									<span class="user_to"></span> &nbsp;&nbsp;&nbsp;&nbsp;1 hour ago
+									<button class="delete_button btn-danger" id="post478">X</button>
+								</div>
+								<div id="post_body">
+									<span class="post_body_content">blaaaaaaa blaaaa</span>
+									<br>
+									
+									<br>
+									<br>
+								</div>
+
+								<div class="newsfeedPostOptions">
+									<span class="comments_count">Comments(0)</span>&nbsp;&nbsp;&nbsp;
+									<iframe src="like.php?post_id=478" scrolling="no"></iframe>
+								</div>
+
+							</div>
+							<div class="post_comment" id="toggleComment478" style="display:none;">
+								<iframe src="comment_frame.php?post_id=478" id="comment_iframe" frameborder="0"></iframe>
+							</div>
+							<hr><input type="hidden" class="nextPage" value="2">
+							<input type="hidden" class="noMorePosts" value="false"></div>
+		<img id="loading" src="assets/images/icons/loading.gif" style="display: none;">
+
+
+	</div>
+
+	<div class="user_details column">
+
+<h4>Trending words</h4>
+
+<div class="trends">
+	<div style'padding:="" 1px'="">Ut<br></div><br><div style'padding:="" 1px'="">Hello<br></div><br><div style'padding:="" 1px'="">Postare<br></div><br><div style'padding:="" 1px'="">Et<br></div><br><div style'padding:="" 1px'="">Sed<br></div><br><div style'padding:="" 1px'="">Nec<br></div><br><div style'padding:="" 1px'="">Ac<br></div><br><div style'padding:="" 1px'="">Nunc<br></div><br><div style'padding:="" 1px'="">Quis<br></div><br></div>
+
+
+</div>
+
+	<script>
+	var userLoggedIn = 'madalina_munteanu';
+
+	$(document).ready(function() {
+
+		$('#loading').show();
+
+		//Original ajax request for loading first posts 
+		$.ajax({
+			url: "includes/handlers/ajax_load_posts.php",
+			type: "POST",
+			data: "page=1&userLoggedIn=" + userLoggedIn,
+			cache:false,
+
+			success: function(data) {
+				$('#loading').hide();
+				$('.posts_area').html(data);
+			}
+		});
+
+		$(window).scroll(function() {
+			var height = $('.posts_area').height(); //Div containing posts
+			var scroll_top = $(this).scrollTop();
+			var page = $('.posts_area').find('.nextPage').val();
+			var noMorePosts = $('.posts_area').find('.noMorePosts').val();
+
+			if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+				$('#loading').show();
+
+				var ajaxReq = $.ajax({
+					url: "includes/handlers/ajax_load_posts.php",
+					type: "POST",
+					data: "page=" + page + "&userLoggedIn=" + userLoggedIn,
+					cache:false,
+
+					success: function(response) {
+						$('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
+						$('.posts_area').find('.noMorePosts').remove(); //Removes current .nextpage 
+
+						$('#loading').hide();
+						$('.posts_area').append(response);
+					}
+				});
+
+			} //End if 
+
+			return false;
+
+		}); //End (window).scroll(function())
+
+
+	});
+
+	</script>
+
+
+
+
+	</div>
+
+</body></html>
