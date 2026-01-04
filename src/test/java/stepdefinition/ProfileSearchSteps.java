@@ -1,17 +1,10 @@
 package stepdefinition;
 
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import pageobjectmodel.ProfileSearchPage;
-
-import java.util.Locale;
-
-import static com.codeborne.selenide.Selenide.$;
 
 public class ProfileSearchSteps {
     private ProfileSearchPage registerProfile = new ProfileSearchPage();

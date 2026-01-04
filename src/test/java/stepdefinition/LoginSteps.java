@@ -28,7 +28,7 @@ public class LoginSteps {
     }
     @Then("user is redirected to the new page")
     public void successLogin(){
-        //Assert.assertTrue("Login Successfully", loginPage.isErrorMessageVisible());
+
         $("body").shouldBe(Condition.visible);
         String currentUrl = com.codeborne.selenide.WebDriverRunner.url();
         Assert.assertEquals("URL should match after successful login", LoginPage.url2, currentUrl);
@@ -43,28 +43,33 @@ public class LoginSteps {
     public void userResultsAccordingly(){
         if (loginPage.isErrorMessageVisible()) {
 
-            System.out.println("LError message visible");
+            System.out.println("Error message visible");
         } else {
             System.out.println("LoginSuccessfully");
         }
     }
-    @When("user enters the following credentials")
-    public void userEntersCredentials(io.cucumber.datatable.DataTable dataTable){
-        List<Map<String,String>> credentials = dataTable.asMaps (String.class, String.class);
-        for (Map<String, String> row: credentials){
-            loginPage.openPage();
-            loginPage.login(row.get("email"), row.get("password"));
-            if (loginPage.isErrorMessageVisible()){
-                System.out.println("login Failed for: "+row.get("email"));
-            }
-            else {
-                System.out.println("login Successful for: "+row.get("email"));
+
+        @When("user enters the following credentials")
+        public void userEntersCredentials (DataTable dataTable){
+            List<Map<String, String>> credentials = dataTable.asMaps(String.class, String.class);
+
+            for (Map<String, String> row : credentials) {
+                String email = row.get("email");
+                String password = row.get("password");
+
+                loginPage.openPage();
+                loginPage.login(email, password);
+
+                Assert.assertTrue(
+                        "Expected error message for user: " + email,
+                        loginPage.isErrorMessageVisible()
+                );
+
+                System.out.println("Login failed as expected for user: " + email);
             }
         }
-
     }
 
 
-}
 
 

@@ -10,7 +10,6 @@ import static com.codeborne.selenide.Selenide.open;
 public class LoginPage {
     public static String url = "https://test.hapifyme.com/login_register.php";
 
-    //selectori Selenide
     public SelenideElement emailField = $(By.id("emailId"));
     public SelenideElement passwordField = $("#passwordId");
     public SelenideElement loginButton = $("input[name='login_button']");
@@ -18,8 +17,6 @@ public class LoginPage {
 
     public static String url2 = "https://test.hapifyme.com/index.php";
 
-    // public By paOsswordField = By.name("password");
-    // public By loginButton = By.cssSelector(".login-form > form >button");
     public static void openPage() {
         open(url);
     }
@@ -29,7 +26,6 @@ public class LoginPage {
         loginButton.shouldBe(Condition.visible).click();
     }
 
-    //verify error message
     public boolean isErrorMessageVisible(){
         return errorMessage.isDisplayed();
     }
